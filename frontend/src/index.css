@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.menuItems{
+    @apply  p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 font-semibold text-lg flex items-center mr-2;
+}
