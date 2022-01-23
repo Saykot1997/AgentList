@@ -18,7 +18,7 @@ app.use(cors())
 app.use(express.json());
 
 // databess conection
-mongoose.connect('mongodb://localhost:27017/agent_list', { useNewUrlParser: true, useUnifiedTopology: true }, () => { console.log("databess has been conected !") });
+mongoose.connect(process.env.MongodbConnection, { useNewUrlParser: true, useUnifiedTopology: true }, () => { console.log("databess has been conected !") });
 
 //get route
 app.get('/', async (req, res) => {
