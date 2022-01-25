@@ -3,7 +3,6 @@ import { FaWhatsappSquare } from 'react-icons/fa';
 
 function CustomerServiceTable({ customerService }) {
 
-
     return (
         <div className=' w-full flex justify-center items-center my-3'>
             <div className=' w-[850px] bg-gray-700 rounded-md shadow '>
