@@ -81,53 +81,52 @@ function Login() {
     }
 
     return (
-        <div className=' h-screen w-full relative bg-white dark:bg-gray-900'>
-            <div className=' h-[82%] w-full flex justify-center items-center bg-gray-100 dark:bg-slate-900'>
-                <div className=' w-[29%] h-full'>
-                    <div className=' flex flex-col justify-center items-center mt-10'>
-                        <TopBarLogo />
-                        <div className=' w-[395px] bg-white shadow-md shadow-gray-400 dark:shadow dark:bg-slate-700 rounded-md p-4'>
-                            <p className=' text-center text-lg mb-4 dark:text-gray-300'>Log in to access the agent list</p>
-                            <div className={`${mobileNumberErr && " ring-2 ring-red-500 animate-shake rounded-md"} relative w-full`}>
-                                <input onFocus={CloseErrorMessage} onChange={(e) => { setMobileNumber(e.target.value) }} value={mobileNumber} type="number" placeholder='Mobile number' className={`p-3 w-full border border-gray-300 placeholder:text-gray-400 focus:ring-1 ring-blue-600 focus:outline-0 placeholder:font-semibold rounded`} />
-                                {
-                                    showError === "mobileNumberErr" &&
-                                    <div className=' absolute w-full rounded-md left-full top-0 p-2 bg-red-400 text-white font-semibold'>
-                                        <p>{mobileNumberErr}</p>
-                                    </div>
-                                }
-                                {
-                                    mobileNumberErr &&
-                                    <CgDanger onClick={() => { ShowErrorMessage("mobileNumberErr") }} className=' text-red-500 absolute top-1/2 right-2 -translate-y-1/2 text-lg cursor-pointer' />
-                                }
+        <div className='w-[850px] mt-0 mx-auto min-h-full'>
+            <TopBarLogo />
+            <div className=' w-full'>
+                <div className='w-[395px] mx-auto shadow-gray-400 shadow bg-slate-700 rounded-md p-4'>
+                    <p className=' text-center text-lg mb-4 text-gray-300'>Log in to access the agent list</p>
+                    <div className={`${mobileNumberErr && " ring-2 ring-red-500 animate-shake rounded-md"} relative w-full`}>
+                        <input onFocus={CloseErrorMessage} onChange={(e) => { setMobileNumber(e.target.value) }} value={mobileNumber} type="number" placeholder='Mobile number' className={`p-3 w-full border border-gray-300 placeholder:text-gray-400 focus:ring-1 ring-blue-600 focus:outline-0 placeholder:font-semibold rounded`} />
+                        {
+                            showError === "mobileNumberErr" &&
+                            <div className=' absolute w-1/2 rounded-md left-full top-0 p-2 bg-red-400 text-white font-semibold'>
+                                <p>{mobileNumberErr}</p>
                             </div>
-                            <div className={` relative w-full my-2 ${passwordErr && " ring-2 ring-red-500 animate-shake rounded-md"} `}>
-                                <input onFocus={CloseErrorMessage} onChange={(e) => { setPassword(e.target.value) }} value={password} type="password" placeholder='Password' className={`p-3 w-full border border-gray-300 placeholder:text-gray-400 focus:ring-1 ring-blue-600 focus:outline-0 placeholder:font-semibold rounded`} />
-
-                                {
-                                    showError === "passwordErr" &&
-                                    <div className=' absolute w-full rounded-md left-full top-0 p-2 bg-red-400 text-white font-semibold'>
-                                        <p>{passwordErr}</p>
-                                    </div>
-                                }
-                                {
-                                    passwordErr &&
-                                    <CgDanger onClick={() => { ShowErrorMessage("passwordErr") }} className=' text-red-500 absolute top-1/2 right-2 -translate-y-1/2 text-lg cursor-pointer' />
-                                }
-
-                            </div>
-                            <button onClick={Login} className=' w-full py-3 bg-blue-500 text-white font-bold text-lg rounded-md my-2 hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-900'>Log In</button>
-                            <hr className=' h-[1px] bg-gray-500 w-full my-4' />
-                            <div className=' w-full flex justify-center items-center'>
-                                <button onClick={ShowCreateAccountPage} className=' w-[55%] py-2 bg-green-500 hover:bg-green-600 rounded-md text-white font-bold'>Create New Account</button>
-                            </div>
-                            <p className=' text-red-500 text-sm text-center mt-2 font-semibold'>{showError}</p>
-                        </div>
+                        }
+                        {
+                            mobileNumberErr &&
+                            <CgDanger onClick={() => { ShowErrorMessage("mobileNumberErr") }} className=' text-red-500 absolute top-1/2 right-2 -translate-y-1/2 text-lg cursor-pointer' />
+                        }
                     </div>
+                    <div className={` relative w-full my-2 ${passwordErr && " ring-2 ring-red-500 animate-shake rounded-md"} `}>
+                        <input onFocus={CloseErrorMessage} onChange={(e) => { setPassword(e.target.value) }} value={password} type="password" placeholder='Password' className={`p-3 w-full border border-gray-300 placeholder:text-gray-400 focus:ring-1 ring-blue-600 focus:outline-0 placeholder:font-semibold rounded`} />
+
+                        {
+                            showError === "passwordErr" &&
+                            <div className=' absolute w-6/12 rounded-md left-full top-0 p-2 bg-red-400 text-white font-semibold'>
+                                <p>{passwordErr}</p>
+                            </div>
+                        }
+                        {
+                            passwordErr &&
+                            <CgDanger onClick={() => { ShowErrorMessage("passwordErr") }} className=' text-red-500 absolute top-1/2 right-2 -translate-y-1/2 text-lg cursor-pointer' />
+                        }
+
+                    </div>
+                    <button onClick={Login} className=' w-full py-3 bg-blue-500 text-white font-bold text-lg rounded-md my-2 hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-900'>Log In</button>
+                    <hr className=' h-[1px] bg-gray-500 w-full my-4' />
+                    <div className=' w-full flex justify-center items-center'>
+                        <button onClick={ShowCreateAccountPage} className=' w-[55%] py-2 bg-green-500 hover:bg-green-600 rounded-md text-white font-bold'>Create New Account</button>
+                    </div>
+                    <p className=' text-red-500 text-sm text-center mt-2 font-semibold'>{showError}</p>
                 </div>
+                <Register createAccount={createAccount} setCreateAccount={setCreateAccount} />
             </div>
-            <Register createAccount={createAccount} setCreateAccount={setCreateAccount} />
         </div>
+
+
+
 
     )
 }

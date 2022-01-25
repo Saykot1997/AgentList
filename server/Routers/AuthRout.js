@@ -24,26 +24,30 @@ router.post("/register", async (req, res) => {
                     mobileNumber,
                     agentId,
                     reating: 7,
-                    whatsAppLink: `https://wa.me/${mobileNumber}`
                 })
 
-                const findUserEmail = await User.findOne({ mobileNumber });
+                const findUserMobileNumber = await User.findOne({ mobileNumber });
+                const findUserAgentId = await User.findOne({ agentId });
 
-                if (findUserEmail) {
+                if (findUserMobileNumber) {
 
                     res.status(403).json("User mobileNumber is already exist");
 
-                } else {
+                } else if (findUserAgentId) {
 
-                    const newUser = await user.save();
-                    res.status(200).json(newUser);
+                    res.status(403).json("User agentId is already exist");
+                }
+                else {
+
+                    await user.save();
+                    res.status(200).json("user is created");
 
                 }
 
             } catch (error) {
 
-                res.status(400).json("Something went wrong");
-                console.log(error);
+                res.status(400).json(error);
+
             }
 
         } else {
@@ -66,7 +70,6 @@ router.post("/login", async (req, res) => {
 
     const { mobileNumber, password } = req.body;
 
-    console.log(req.body)
 
     if (password && mobileNumber) {
 

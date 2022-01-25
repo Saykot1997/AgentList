@@ -156,8 +156,8 @@ function CreateAgentComponent() {
 
     return (
 
-        <div className={`h-[500px]" w-full p-3 flex justify-center`}>
-            <div className=' bg-white dark:bg-slate-700 shadow-gray-300 rounded-lg '>
+        <div className={`h-[500px]" w-full bg-gray-700 p-3 flex justify-center`}>
+            <div className='bg-slate-700 shadow-gray-300 rounded-lg '>
                 <form onSubmit={(e) => RegisterUser(e)} className=' w-full'>
                     <div className=' p-3 w-full'>
                         <div className=' flex justify-between w-full my-1'>
@@ -217,9 +217,8 @@ function CreateAgentComponent() {
                             }
                         </div>
                         <div className={`w-full my-2 relative ${reatingerr && "border border-red-400 animate-shake"}`}>
-                            {/* <input onFocus={CloseErrorMessage} onChange={(e) => { setReating(e.target.value) }} value={reating} type="number" className=' w-full py-2 border border-gray-300 bg-gray-100 px-2 focus:outline-0 rounded placeholder:text-gray-500' placeholder='Reatings' /> */}
                             <select name="" id="" className=' w-full bg-gray-100 p-2 focus:outline-0' value={reating} onChange={(e) => { setReating(e.target.value); setReatingErr("") }}>
-                                <option value="">Reaating</option>
+                                <option value="">Rating</option>
                                 <option value="1" className=''>1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

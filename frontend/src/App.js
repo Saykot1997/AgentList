@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
 import Home from './Pages/Home';
 import CustomerService from './Pages/CustomerService';
 import Admin from './Pages/Admin';
@@ -16,7 +16,6 @@ import ManegeAgents from "./Pages/ManegeAgents";
 function App() {
 
   const user = useSelector(state => state.User.User);
-  const allUser = useSelector(state => state.User.allUsers);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,21 +28,21 @@ function App() {
 
     getConnection();
 
-  }, [])
+  }, [user])
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/customerService" element={<CustomerService />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/superAgent" element={<SuperAgent />} />
         <Route path="/onlineMasterAgent" element={<OnlineMusterAgent />} />
-        <Route path="/manegeAgents" element={user ? <ManegeAgents /> : <Login />} />
-        <Route path="/Login" element={user ? <Home /> : <Login />} />
-        <Route path="/createAgent" element={user ? <CreateAgent /> : <Login />} />
+        <Route path="/manegeAgents" element={<ManegeAgents />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/createAgent" element={<CreateAgent />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

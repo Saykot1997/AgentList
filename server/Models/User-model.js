@@ -42,11 +42,6 @@ const UserSchema = new mongoose.Schema({
         default: 0,
         required: true
     },
-    whatsAppLink: {
-        type: String,
-        default: "",
-        required: true
-    },
     agentId: {
         type: String,
         default: "",

@@ -19,6 +19,7 @@ function Register({ createAccount, setCreateAccount }) {
     const [showError, setShowError] = useState("")
     const [agentId, setAgentId] = useState("")
     const [agentIdErr, setAgentIdErr] = useState("")
+    const [serverErr, setServerErr] = useState("")
 
     useEffect(() => {
 
@@ -32,7 +33,8 @@ function Register({ createAccount, setCreateAccount }) {
         setMobileErr("");
         setPasswordErr("");
         setShowError("");
-        setSecrateErr("")
+        setSecrateErr("");
+        setServerErr("");
 
     }, [])
 
@@ -104,8 +106,22 @@ function Register({ createAccount, setCreateAccount }) {
 
             } catch (error) {
 
-                console.log(error.response.data)
+                if (error.response.data === "User mobileNumber is already exist") {
 
+                    setServerErr("Mobile number is already exist")
+
+                } else if (error.response.data === "User agentId is already exist") {
+
+                    setServerErr("Agent Id is already exist")
+
+                } else if (error.response.data === "secrate code is not correct") {
+
+                    setServerErr("Secrate code is not correct")
+
+                } else {
+
+                    setServerErr("Server Error")
+                }
             }
         }
 
@@ -126,6 +142,7 @@ function Register({ createAccount, setCreateAccount }) {
         setShowError("");
         setAgentIdErr("");
         setAgentId("")
+        setServerErr("");
 
     }
 
@@ -140,20 +157,21 @@ function Register({ createAccount, setCreateAccount }) {
         setPasswordErr("");
         setShowError("");
         setSecrateErr("");
+        setServerErr("");
     }
 
 
 
     return (
-        <div className={`${createAccount ? " visible" : " hidden"} absolute w-full h-full dark:bg-slate-900 top-0 left-0 flex justify-center bg-white bg-opacity-70 `}>
+        <div className={`${createAccount ? " visible" : " hidden"} absolute w-full h-full bg-slate-900 top-0 left-0 flex justify-center bg-opacity-70 `}>
             <div className={`h-[500px]" mt-32 w-full flex justify-center`}>
-                <div className=' bg-white dark:bg-slate-700 dark:shadow h-[500px] w-[430px] shadow-lg shadow-gray-300 rounded-lg '>
+                <div className=' bg-slate-700 shadow h-[500px] w-[430px] shadow-gray-300 rounded-lg '>
                     <div className=' flex justify-between p-3'>
                         <div>
-                            <h2 className=' text-3xl font-bold dark:text-gray-300'>Sign Up</h2>
-                            <p className=' text-gray-500 text-sm mt-1 dark:text-gray-300'>It is quick and easy</p>
+                            <h2 className=' text-3xl font-bold text-gray-300'>Sign Up</h2>
+                            <p className=' text-sm mt-1 text-gray-300'>It is quick and easy</p>
                         </div>
-                        <AiOutlineClose onClick={() => { setCreateAccount(false); closeTheForm() }} className=' font-extrabold text-gray-500 dark:text-red-500 text-2xl cursor-pointer' />
+                        <AiOutlineClose onClick={() => { setCreateAccount(false); closeTheForm() }} className=' font-extrabold text-red-500 text-2xl cursor-pointer' />
                     </div>
                     <hr />
                     <form onSubmit={(e) => RegisterUser(e)} className=' w-full'>
@@ -243,6 +261,10 @@ function Register({ createAccount, setCreateAccount }) {
                             <div className=' w-full mt-4 mb-1 flex justify-center'>
                                 <button className=' py-[6px] px-16 disabled:cursor-not-allowed disabled:bg-green-900 rounded-md bg-green-600 hover:bg-green-700 text-white font-bold'>Sign Up</button>
                             </div>
+                            {
+                                serverErr &&
+                                <p className=' text-red-500 text-sm text-center mt-1 font-semibold'>{serverErr}</p>
+                            }
                         </div>
                     </form>
                 </div>

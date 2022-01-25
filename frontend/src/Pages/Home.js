@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TopBarLogo from '../Components/TopBarLogo';
 import Menubar from '../Components/Menubar';
 import QuickMusterAgentNum from '../Components/QuickMusterAgentNum';
@@ -9,29 +9,14 @@ import TypeOfAgent from '../Components/TypeOfAgent';
 
 function Home() {
 
-    const [isScroled, setIsScroled] = useState(false);
-
-    const SetScroll = (e) => {
-
-        if (e.target.scrollTop > 0) {
-            setIsScroled(true);
-        } else {
-            setIsScroled(false);
-        }
-    }
-
     return (
-        <div onScroll={(e) => SetScroll(e)} className=' w-full h-screen bg-gray-200 dark:bg-gray-900 overflow-y-scroll'>
-            <div className=' w-full'>
-                <div className={`${isScroled ? " bg-white dark:bg-slate-700" : ""} w-full sticky top-0 left-0`}>
-                    <TopBarLogo />
-                    <Menubar />
-                </div>
-                <QuickMusterAgentNum />
-                <Openaccount />
-                <AgentList />
-                <TypeOfAgent />
-            </div>
+        <div className='w-[850px] mt-0 mx-auto min-h-full'>
+            <TopBarLogo />
+            <Menubar />
+            <QuickMusterAgentNum />
+            <Openaccount />
+            <AgentList />
+            <TypeOfAgent />
         </div>
     )
 }

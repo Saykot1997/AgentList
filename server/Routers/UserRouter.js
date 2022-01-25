@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const User = require("../Models/User-model");
-const bcrypt = require('bcrypt');
 const Authgurd = require("../Authgurd/Authgurd");
-const jwt = require('jsonwebtoken');
+
 
 router.post("/createAgent", Authgurd, async (req, res) => {
 
@@ -20,7 +19,6 @@ router.post("/createAgent", Authgurd, async (req, res) => {
                 agentId,
                 reating,
                 mobileNumber: mobile,
-                whatsAppLink: `https://wa.me/${mobile}`,
 
             })
 
@@ -184,7 +182,6 @@ router.put("/update/:id", Authgurd, async (req, res) => {
     try {
 
         const agent = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        console.log(agent)
         res.status(200).json(agent)
 
     } catch (error) {

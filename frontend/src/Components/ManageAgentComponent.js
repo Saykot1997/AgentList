@@ -60,7 +60,7 @@ function ManageAgentComponent({ agents }) {
     const UpdateAgent = async (agent) => {
 
         const updateAbleAgent = {
-            agentName,
+            fullName: agentName,
             agentId,
             agentType,
             reating,
@@ -85,24 +85,16 @@ function ManageAgentComponent({ agents }) {
     }
 
 
-    // console.log(agentName)
-    // console.log(agentType)
-    // console.log(agentId)
-    // console.log(reating)
-    // console.log(mobileNumber)
-    // console.log(confirmDelete)
-
-
     return (
         <div className=' w-full flex justify-center items-center my-3'>
-            <div className='bg-white dark:bg-gray-700 rounded-md shadow '>
+            <div className='bg-gray-700 rounded-md shadow '>
                 <table className=' border-collapse border border-slate-400 w-full'>
                     <thead>
-                        <tr className=' bg-gray-100 dark:bg-gray-500 dark:text-gray-300'>
+                        <tr className='bg-gray-500 text-gray-300'>
                             <th className='border border-slate-300 font-semibold p-3'>TYPE</th>
                             <th className='border border-slate-300 font-semibold p-3'>NAME</th>
                             <th className='border border-slate-300 font-semibold p-3'>Id</th>
-                            <th className='border border-slate-300 font-semibold p-3'>REATING</th>
+                            <th className='border border-slate-300 font-semibold p-3'>RATING</th>
                             <th className='border border-slate-300 font-semibold p-3'>PHONE APP LINK</th>
                             <th className='border border-slate-300 font-semibold p-3'>PHONE NUMBER</th>
                             <th className='border border-slate-300 font-semibold p-3'>Manage</th>
@@ -114,12 +106,12 @@ function ManageAgentComponent({ agents }) {
                             agents && agents.map((agent, index) => {
 
                                 return (
-                                    <tr className=' dark:text-gray-300' key={index}>
+                                    <tr className='text-gray-300' key={index}>
                                         {
                                             isOpenEditMode && currentAgent._id === agent._id ?
 
                                                 <td className='p-1'>
-                                                    <select name="" id="" className=' w-full bg-gray-100 p-2 focus:outline-0' value={agentType} onChange={(e) => { setAgentType(e.target.value) }}>
+                                                    <select name="" id="" className=' w-full bg-gray-500 p-2 focus:outline-0' value={agentType} onChange={(e) => { setAgentType(e.target.value) }}>
                                                         <option value="">Agent Type</option>
                                                         <option value="CUSTOMER SERVICE" className=''>CUSTOMER SERVICE</option>
                                                         <option value="SUPER AGENT">SUPER AGENT</option>
@@ -133,7 +125,7 @@ function ManageAgentComponent({ agents }) {
                                         {
                                             isOpenEditMode && currentAgent._id === agent._id ?
                                                 <td >
-                                                    <input type="text" value={agentName} onChange={(e) => { setAgentName(e.target.value) }} className=' w-full bg-gray-100 p-2 rounded-md' />
+                                                    <input type="text" value={agentName} onChange={(e) => { setAgentName(e.target.value) }} className=' w-full bg-gray-500 p-2 rounded-md' />
                                                 </td>
 
                                                 :
@@ -143,7 +135,7 @@ function ManageAgentComponent({ agents }) {
                                             isOpenEditMode && currentAgent._id === agent._id ?
 
                                                 <td>
-                                                    <input type="number" className=' bg-gray-100 p-2 rounded-md' value={agentId} onChange={(e) => { setAgentId(e.target.value) }} />
+                                                    <input type="number" className=' bg-gray-500 p-2 rounded-md' value={agentId} onChange={(e) => { setAgentId(e.target.value) }} />
                                                 </td>
 
                                                 :
@@ -155,27 +147,36 @@ function ManageAgentComponent({ agents }) {
                                             isOpenEditMode && currentAgent._id === agent._id ?
 
                                                 <td>
-                                                    <input type="number" className=' bg-gray-100 p-2 rounded-md' value={reating} onChange={(e) => { setReating(e.target.value) }} />
+                                                    <select name="" id="" className=' w-full bg-gray-500 p-2 focus:outline-0' value={reating} onChange={(e) => { setReating(e.target.value) }}>
+                                                        <option value="">Reaating</option>
+                                                        <option value="1" className=''>1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                    </select>
                                                 </td>
 
                                                 :
-                                                <td className='border border-slate-300 p-3 text-center font-semibold uppercase'>{agent.agentId}</td>
+                                                <td className='border border-slate-300 p-3 text-center font-semibold uppercase'>{agent.reating}</td>
 
                                         }
 
                                         <td className='border border-slate-300 p-3 text-center font-semibold uppercase'>
-                                            <a href={agent.whatsAppLink} target={"_blank"} rel="noreferrer" className=' flex justify-center items-center cursor-pointer'>
+                                            <a href={`https://wa.me/${agent.mobileNumber}`} target={"_blank"} rel="noreferrer" className=' flex justify-center items-center cursor-pointer'>
                                                 <FaWhatsappSquare className=' text-2xl text-green-400' />
                                             </a>
                                         </td>
                                         {
                                             isOpenEditMode && currentAgent._id === agent._id ?
                                                 <td>
-                                                    <input type="number" value={mobileNumber} onChange={(e) => { setMobileNumber(e.target.value) }} className=' bg-gray-100 p-2 rounded-md' />
+                                                    <input type="number" value={mobileNumber} onChange={(e) => { setMobileNumber(e.target.value) }} className=' bg-gray-500 p-2 rounded-md' />
                                                 </td>
                                                 :
                                                 <td className='border border-slate-300 p-3 text-center font-semibold text-red-400 cursor-pointer'>
-                                                    <a href={agent.whatsAppLink} target={"_blank"} rel="noreferrer">{agent.mobileNumber}</a></td>
+                                                    <a href={`https://wa.me/${agent.mobileNumber}`} target={"_blank"} rel="noreferrer">{agent.mobileNumber}</a></td>
                                         }
 
                                         {

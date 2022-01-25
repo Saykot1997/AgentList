@@ -4,5 +4,20 @@
 
 
 .menuItems{
-    @apply  p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 font-semibold text-lg flex items-center mr-2;
+    @apply rounded-md hover:bg-gray-600 p-3 font-semibold flex items-center;
+}
+.menuBar{
+    @apply w-full bg-gray-700 flex justify-between p-1 rounded;
+}
+.menuIcons{
+    @apply mr-2;
+}
+.adminMenuItems{
+   @apply rounded-md hover:bg-gray-600 text-[10px] flex items-center;
+}
+.adminmenuBar{
+   @apply  w-full bg-gray-700 flex justify-between p-1 rounded;
+}
+.AdminmenuIcons{
+    @apply  mr-[2px];
 }
