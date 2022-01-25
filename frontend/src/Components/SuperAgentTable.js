@@ -32,7 +32,7 @@ function SuperAgentTable({ superAgent }) {
                                         <td className='border border-slate-300 p-3 text-center font-semibold text-red-400 cursor-pointer'>
                                             <a href={`https://wa.me/${agent.mobileNumber}`} target={"_blank"} rel="noreferrer">{agent.mobileNumber}</a></td>
                                         <td className='border border-slate-300 p-3 text-center font-semibold uppercase'>
-                                            <a href={`https://wa.me/${agent.mobileNumber}`} target={"_blank"} rel="noreferrer" className='text-red-400'>Complain</a>
+                                            <a href={`https://wa.me/16096382784`} target={"_blank"} rel="noreferrer" className='text-red-400'>Complain</a>
                                         </td>
                                     </tr>
                                 )
