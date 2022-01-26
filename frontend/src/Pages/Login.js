@@ -67,6 +67,7 @@ function Login() {
             try {
 
                 const res = await axios.post(`${Host}/api/auth/login`, userData);
+
                 dispatch(setUser(res.data));
                 res && setMobileNumber('');
                 res && setPassword('');

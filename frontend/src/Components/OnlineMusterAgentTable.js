@@ -42,7 +42,8 @@ function OnlineMusterAgentTable({ onlineMusterAgent }) {
                                         <td className='border border-slate-300 p-3 text-center font-semibold uppercase'>{agent.role}</td>
                                         <td className='border border-slate-300 p-3 text-center font-semibold uppercase'>{agent.fullName}</td>
                                         <td className='border border-slate-300 p-3 text-center font-semibold uppercase'>{agent.agentId}</td>
-                                        <td className='border border-slate-300 p-3 text-center font-semibold flex items-center'>
+                                        <td className='border border-slate-300 py-7 text-center font-semibold flex justify-center items-center'>
+
                                             {
                                                 reating(agent.reating)
 

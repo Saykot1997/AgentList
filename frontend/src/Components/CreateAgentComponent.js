@@ -110,6 +110,7 @@ function CreateAgentComponent() {
                 setSureName("");
                 setMobilErr("");
                 setAgentId("");
+                setAgentType("");
                 setReating("")
                 setFirstNameErr("");
                 setSureNameErr("");
@@ -120,11 +121,11 @@ function CreateAgentComponent() {
 
             } catch (error) {
 
-                if (error.response.data.keyValue.mobileNumber) {
+                if (error.response.data === "Mobile number already exists") {
 
                     setShowError("Mobile number already exists");
 
-                } else if (error.response.data.keyValue.agentId) {
+                } else if (error.response.data === "AgentId is already exists") {
 
                     setShowError("AgentId is already exists");
                 }

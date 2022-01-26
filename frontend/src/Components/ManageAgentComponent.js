@@ -62,7 +62,7 @@ function ManageAgentComponent({ agents }) {
         const updateAbleAgent = {
             fullName: agentName,
             agentId,
-            agentType,
+            role: agentType,
             reating,
             mobileNumber
         }

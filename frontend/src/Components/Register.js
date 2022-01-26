@@ -99,12 +99,14 @@ function Register({ createAccount, setCreateAccount }) {
             }
 
             try {
-                console.log(userData)
+
                 const res = await axios.post(`${Host}/api/auth/register`, userData)
+                console.log(res.data)
                 res && setCreateAccount(false);
                 res && closeTheForm();
 
             } catch (error) {
+                console.log(error)
 
                 if (error.response.data === "User mobileNumber is already exist") {
 

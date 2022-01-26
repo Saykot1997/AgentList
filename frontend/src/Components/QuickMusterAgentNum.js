@@ -49,7 +49,7 @@ function QuickMusterAgentNum() {
                                             <FaWhatsappSquare className=' text-green-400 cursor-pointer text-xl' />
                                         </a>
                                     </div>
-                                    <a href={`https://wa.me/${item.mobileNumber}`} target="_blank" rel="noopener noreferrer" className=' text-base font-bold text-red-400'>+1234567890</a>
+                                    <a href={`https://wa.me/${item.mobileNumber}`} target="_blank" rel="noopener noreferrer" className=' text-base font-bold text-red-400'>{item.mobileNumber}</a>
                                 </div>
                             )
 
