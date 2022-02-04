@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
+const corse = require('cors');
+const db = require('./database');
 const port = process.env.PORT || 8000;
-const mongoose = require('mongoose');
-const cors = require('cors');
 const env = require('dotenv');
 const AuthRout = require('./Routers/AuthRout');
 const UserRout = require('./Routers/UserRouter');
@@ -11,17 +11,32 @@ const UserRout = require('./Routers/UserRouter');
 // dotenv config
 env.config();
 
-//frontend config
-app.use(cors())
-
 // body parser
 app.use(express.json());
 
-// databess conection
-mongoose.connect(process.env.MongodbConnection, { useNewUrlParser: true, useUnifiedTopology: true }, () => { console.log("databess has been conected !") });
+// database connection
+db.connect((err) => {
+    if (err) throw err;
+    console.log('Connected to MySQL Server!');
+});
+
+// cors config
+app.use(corse({
+    origin: '*',
+}));
+
+//Enabling CORS
+
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x - client - key, x - client - token, x - client - secret, Authorization")
+//     next();
+// });
+
 
 //get route
-app.get('/', async (req, res) => {
+app.get('/api/', (req, res) => {
     res.json("hollo world")
 });
 

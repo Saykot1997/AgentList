@@ -59,12 +59,12 @@ function Admin() {
                                             <td className='border border-slate-300 p-3 text-center font-semibold uppercase w-1/4'>{agent.role}</td>
                                             <td className='border border-slate-300 p-3 text-center font-semibold uppercase w-1/4'>{agent.fullName}</td>
                                             <td className='border border-slate-300 p-3 text-center font-semibold uppercase w-1/4'>
-                                                <a href={agent.whatsAppLink} target={"_blank"} rel="noreferrer" className=' flex justify-center items-center cursor-pointer'>
+                                                <a href={`https://wa.me/${agent.mobileNumber}`} target={"_blank"} rel="noreferrer" className=' flex justify-center items-center cursor-pointer'>
                                                     <FaWhatsappSquare className=' text-2xl text-green-400' />
                                                 </a>
                                             </td>
                                             <td className='border border-slate-300 p-3 text-center font-semibold w-1/4 text-red-400 cursor-pointer'>
-                                                <a href={agent.whatsAppLink} target={"_blank"} rel="noreferrer">{agent.mobileNumber}</a></td>
+                                                <a href={`https://wa.me/${agent.mobileNumber}`} target={"_blank"} rel="noreferrer">{agent.mobileNumber}</a></td>
                                         </tr>
                                     )
                                 })

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require("../Models/User-model");
+const db = require("../database");
 const Authgurd = require("../Authgurd/Authgurd");
 
 
@@ -11,7 +11,7 @@ router.post("/createAgent", Authgurd, async (req, res) => {
 
         try {
 
-            const user = new User({
+            const user = {
                 firstName,
                 sureName,
                 fullName: `${firstName} ${sureName}`,
@@ -20,15 +20,44 @@ router.post("/createAgent", Authgurd, async (req, res) => {
                 reating,
                 mobileNumber: mobile,
 
-            })
+            }
 
-            user.save()
-                .then(user => {
-                    res.status(200).json(user);
-                })
-                .catch(error => {
-                    res.status(400).json(error);
-                })
+            // find if agent already exist
+
+            db.query(`SELECT * FROM user WHERE agentId = '${agentId}'`, (err, result) => {
+
+                if (err) throw err;
+
+                if (result.length > 0) {
+
+                    res.status(400).json("AgentId is already exists");
+
+                } else {
+
+                    // find if mobile number already exist
+
+                    db.query(`SELECT * FROM user WHERE mobileNumber = '${mobile}'`, (err, result) => {
+
+                        if (err) throw err;
+
+                        if (result.length > 0) {
+
+                            res.status(400).json("Mobile number already exists");
+
+                        } else {
+
+                            // create agent
+
+                            db.query(`INSERT INTO user SET ?`, user, (err, result) => {
+                                if (err) throw err;
+
+                                res.status(200).json("Agent created successfully")
+                            })
+                        }
+                    })
+
+                }
+            })
 
         } catch (error) {
 
@@ -49,13 +78,11 @@ router.get("/getAllAgents", async (req, res) => {
 
     try {
 
-        User.find({})
-            .then(users => {
-                res.status(200).json(users);
-            })
-            .catch(error => {
-                res.status(400).json(error);
-            })
+        db.query("SELECT * FROM user", (err, result) => {
+            if (err) throw err;
+            res.status(200).json(result);
+        })
+
 
     } catch (error) {
 
@@ -70,13 +97,10 @@ router.get("/customerService", async (req, res) => {
 
     try {
 
-        User.find({ role: "CUSTOMER SERVICE" })
-            .then(users => {
-                res.status(200).json(users);
-            })
-            .catch(error => {
-                res.status(400).json(error);
-            })
+        db.query("SELECT * FROM user WHERE role = 'CUSTOMER SERVICE'", (err, result) => {
+            if (err) throw err;
+            res.status(200).json(result);
+        })
 
     } catch (error) {
 
@@ -91,13 +115,12 @@ router.get("/admin", async (req, res) => {
 
     try {
 
-        User.find({ role: "ADMIN" })
-            .then(users => {
-                res.status(200).json(users);
-            })
-            .catch(error => {
-                res.status(400).json(error);
-            })
+        db.query("SELECT * FROM user WHERE role = 'ADMIN'", (err, result) => {
+
+            if (err) throw err;
+            res.status(200).json(result);
+
+        })
 
     } catch (error) {
 
@@ -112,13 +135,12 @@ router.get("/superAgent", async (req, res) => {
 
     try {
 
-        User.find({ role: "SUPER AGENT" })
-            .then(users => {
-                res.status(200).json(users);
-            })
-            .catch(error => {
-                res.status(400).json(error);
-            })
+        db.query("SELECT * FROM user WHERE role = 'SUPER AGENT'", (err, result) => {
+
+            if (err) throw err;
+            res.status(200).json(result);
+
+        })
 
     } catch (error) {
 
@@ -136,13 +158,12 @@ router.get("/onlineMasterAgent", (req, res) => {
 
     try {
 
-        User.find({ role: "ONLINE MUSTER AGENT" })
-            .then(users => {
-                res.status(200).json(users);
-            })
-            .catch(error => {
-                res.status(400).json(error);
-            })
+        db.query("SELECT * FROM user WHERE role = 'ONLINE MUSTER AGENT'", (err, result) => {
+
+            if (err) throw err;
+            res.status(200).json(result);
+
+        })
 
     } catch (error) {
 
@@ -162,9 +183,12 @@ router.get("/delete/:id", Authgurd, async (req, res) => {
 
     try {
 
-        const deletedAgent = await User.findByIdAndDelete(id);
-        console.log(deletedAgent);
-        res.status(200).json("deleted")
+        db.query(`DELETE FROM user WHERE _id = ${id}`, (err, result) => {
+
+            if (err) throw err;
+            res.status(200).json(result);
+
+        })
 
     } catch (error) {
 
@@ -181,8 +205,18 @@ router.put("/update/:id", Authgurd, async (req, res) => {
 
     try {
 
-        const agent = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(200).json(agent)
+        const { id } = req.params;
+
+        db.query(`UPDATE user SET ? WHERE _id = ${id}`, req.body, (err, result) => {
+
+            if (err) throw err;
+            db.query(`SELECT * FROM user WHERE _id = ${id}`, (err, result) => {
+                if (err) throw err;
+                res.status(200).json(result[0]);
+                console.log(result);
+            })
+
+        })
 
     } catch (error) {
         res.status(400).json(error)

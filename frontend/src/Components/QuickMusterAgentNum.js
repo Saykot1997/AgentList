@@ -27,8 +27,6 @@ function QuickMusterAgentNum() {
 
     }, [])
 
-    console.log(onlineMusterAgent);
-
     return (
         <div className=' flex justify-center items-center my-5'>
             <div className=' w-full bg-gray-700 rounded-md shadow '>

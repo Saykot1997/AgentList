@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require("../Models/User-model");
+const db = require("../database");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -15,7 +15,7 @@ router.post("/register", async (req, res) => {
 
             try {
 
-                const user = new User({
+                const user = {
                     firstName,
                     sureName,
                     fullName: `${firstName} ${sureName}`,
@@ -24,25 +24,42 @@ router.post("/register", async (req, res) => {
                     mobileNumber,
                     agentId,
                     reating: 7,
-                })
-
-                const findUserMobileNumber = await User.findOne({ mobileNumber });
-                const findUserAgentId = await User.findOne({ agentId });
-
-                if (findUserMobileNumber) {
-
-                    res.status(403).json("User mobileNumber is already exist");
-
-                } else if (findUserAgentId) {
-
-                    res.status(403).json("User agentId is already exist");
                 }
-                else {
 
-                    await user.save();
-                    res.status(200).json("user is created");
+                db.query(`SELECT * FROM user WHERE mobileNumber ='${mobileNumber}'`, function (err, result) {
 
-                }
+                    console.log(result);
+
+                    if (err) throw err;
+
+                    if (result.length > 0) {
+
+                        res.status(400).json("User mobileNumber is already exist");
+
+                    } else {
+
+                        db.query(`SELECT * FROM user WHERE agentId ='${agentId}'`, function (err, result) {
+
+                            console.log(result);
+
+                            if (err) throw err;
+
+                            if (result.length > 0) {
+
+                                res.status(400).json("User agentId is already exist")
+                            }
+                            else {
+
+                                db.query(`INSERT INTO user SET ?`, user, function (err, result) {
+                                    if (err) throw err;
+
+                                    res.status(200).json(result);
+                                });
+                            }
+                        });
+                    }
+                });
+
 
             } catch (error) {
 
@@ -75,31 +92,38 @@ router.post("/login", async (req, res) => {
 
         try {
 
-            const user = await User.findOne({
-                mobileNumber
-            });
 
-            if (!user) {
+            db.query(`SELECT * FROM user WHERE mobileNumber ='${mobileNumber}'`, function (err, result) {
 
-                res.status(400).json("User not found");
+                if (err) throw err;
 
-            } else {
-                const isMatch = await bcrypt.compare(password, user.password);
+                if (result.length > 0) {
 
-                if (!isMatch) {
+                    const user = result[0];
 
-                    res.status(400).json("Incorrect password");
+                    bcrypt.compare(password, user.password);
+
+                    bcrypt.compare(password, user.password, function (err, response) {
+
+                        if (err) {
+
+                            res.status(400).json("Incorrect password")
+
+                        } else {
+
+                            jwt.sign({ id: user._id, role: user.role, userName: user.fullName }, process.env.TOKENSECRATE, function (err, token) {
+
+                                res.status(200).json({ token, user });
+                            });
+                        }
+                    });
 
                 } else {
 
-                    const token = jwt.sign({ id: user._id, role: user.role, userName: user.fullName }, process.env.TOKENSECRATE);
-
-                    const { password, ...rest } = user._doc;
-
-                    res.status(200).json({ ...rest, token });
-
+                    res.status(400).json("User not found");
                 }
-            }
+
+            });
 
         } catch (error) {
 

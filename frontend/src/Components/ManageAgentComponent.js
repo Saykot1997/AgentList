@@ -181,12 +181,12 @@ function ManageAgentComponent({ agents }) {
 
                                         {
                                             isOpenEditMode && currentAgent._id === agent._id ?
-                                                <td className='flex items-center p-3 text-center'>
+                                                <td className='flex items-center py-8 text-center'>
                                                     <button onClick={() => UpdateAgent(agent)} className=' bg-blue-400 rounded-md text-white px-2 py-1 hover:bg-blue-500'>Save</button>
                                                     <button onClick={CloseEditMode} className=' bg-gray-300 rounded-md text-slate-600 px-2 py-1 ml-2 hover:bg-gray-400 font-semibold'>Cencel</button>
                                                 </td>
                                                 :
-                                                <td className='border border-slate-300 flex items-center p-3 text-center font-semibold uppercase'>
+                                                <td className='border border-slate-300 flex items-center py-8 text-center font-semibold uppercase'>
                                                     <button onClick={() => OpenEditMode(agent)} className=' bg-blue-400 rounded-md text-white px-2 py-1 hover:bg-blue-500'>Eddit</button>
                                                     <button onClick={() => AskforDelete(agent)} className=' bg-gray-300 rounded-md text-slate-600 px-2 py-1 ml-2 hover:bg-gray-400 font-semibold'>Delete</button>
                                                 </td>

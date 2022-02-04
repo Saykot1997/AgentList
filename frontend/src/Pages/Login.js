@@ -75,7 +75,7 @@ function Login() {
 
             } catch (error) {
 
-                setShowError("Email or password is incorrect");
+                setShowError("Mobilenumber or password is incorrect");
             }
 
         }
