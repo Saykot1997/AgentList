@@ -19,7 +19,6 @@ router.post("/createAgent", Authgurd, async (req, res) => {
                 agentId,
                 reating,
                 mobileNumber: mobile,
-
             }
 
             // find if agent already exist
