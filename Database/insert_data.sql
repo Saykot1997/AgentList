@@ -1,0 +1,1 @@
+INSERT INTO user (firstName, sureName, password, fullName, role, agentId, reating, mobileNumber) VALUES ('saykot', 'hossain', '123456', 'saykot hossain', 'admin', '1', '7', '01774400797');

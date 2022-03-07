@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+  agent_list_frontend:
+    image: saykot/agent_list_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - agent_list_backend
+      - agent_list_mysql_database
+  agent_list_backend:
+    image: saykot/agent_list_backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - agent_list_mysql_database
+  agent_list_mysql_database:
+    image: saykot/agent_list_mysql_database
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - data:/var/lib/mysql
+volumes:
+  data:
+    driver: local

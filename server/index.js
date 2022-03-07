@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const corse = require('cors');
 const db = require('./database');
-const port = process.env.PORT || 8000;
 const env = require('dotenv');
 const AuthRout = require('./Routers/AuthRout');
 const UserRout = require('./Routers/UserRouter');
@@ -35,6 +34,6 @@ app.use('/api/auth', AuthRout);
 app.use('/api/user', UserRout);
 
 // server listen
-app.listen(port, () => {
-    console.log('Server is running on port: ' + port);
+app.listen(8000, () => {
+    console.log('Server is running on port: ' + 8000);
 });
